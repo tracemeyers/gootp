@@ -4,6 +4,7 @@ import (
 	"crypto"
 	"encoding/hex"
 	"testing"
+	"time"
 )
 
 //////////////////////////////////////////////////////////////////////////////
@@ -103,4 +104,14 @@ func Test_Input_Sum(t *testing.T) {
 	if actual != expected {
 		t.Error("Expected 0000000000000001, got \"" + actual + "\"")
 	}
+}
+
+func Test_Input_clockIsTicking(t *testing.T) {
+    i := NewInput().(*input)
+    clock := i.fetchTime()
+    d, _ := time.ParseDuration("1s")
+    time.Sleep(d)
+    if clock == i.fetchTime() {
+        t.Error("Clock did not tick")
+    }
 }

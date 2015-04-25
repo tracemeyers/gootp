@@ -90,7 +90,9 @@ func NewInputCustom(step, start int64) otp.Input {
 	in := new(input)
 	in.step = step
 	in.start = start
-	in.fetchTime = time.Now().Unix
+	in.fetchTime = func () int64 {
+        return time.Now().Unix()
+    }
 	return in
 }
 
